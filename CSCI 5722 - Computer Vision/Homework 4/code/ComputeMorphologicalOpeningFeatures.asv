@@ -1,6 +1,0 @@
-function features = ComputeMorphologicalOpeningFeatures(img)
-    I = im2bw(img);
-    I = rgb
-    se = strel('disk', 50);
-    features = imerode(I,se);
-end
