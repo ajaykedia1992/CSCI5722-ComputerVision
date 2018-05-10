@@ -1,0 +1,786 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{softmax}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Softmax exercise}\label{softmax-exercise}
+
+\emph{Complete and hand in this completed worksheet (including its
+outputs and any supporting code outside of the worksheet) with your
+assignment submission. For more details see the
+\href{http://vision.stanford.edu/teaching/cs231n/assignments.html}{assignments
+page} on the course website.}
+
+This exercise is analogous to the SVM exercise. You will:
+
+\begin{itemize}
+\tightlist
+\item
+  implement a fully-vectorized \textbf{loss function} for the Softmax
+  classifier
+\item
+  implement the fully-vectorized expression for its \textbf{analytic
+  gradient}
+\item
+  \textbf{check your implementation} with numerical gradient
+\item
+  use a validation set to \textbf{tune the learning rate and
+  regularization} strength
+\item
+  \textbf{optimize} the loss function with \textbf{SGD}
+\item
+  \textbf{visualize} the final learned weights
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{hmwk5\PYZus{}2}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}CIFAR10}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{print\PYZus{}function}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{10.0}\PY{p}{,} \PY{l+m+mf}{8.0}\PY{p}{)} \PY{c+c1}{\PYZsh{} set default size of plots}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.interpolation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nearest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{image.cmap}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} for auto\PYZhy{}reloading extenrnal modules}
+        \PY{c+c1}{\PYZsh{} see http://stackoverflow.com/questions/1907993/autoreload\PYZhy{}of\PYZhy{}modules\PYZhy{}in\PYZhy{}ipython}
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{o}{=}\PY{l+m+mi}{49000}\PY{p}{,} \PY{n}{num\PYZus{}validation}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}test}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}dev}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Load the CIFAR\PYZhy{}10 dataset from disk and perform preprocessing to prepare}
+        \PY{l+s+sd}{    it for the linear classifier. These are the same steps as we used for the}
+        \PY{l+s+sd}{    SVM, but condensed to a single function.  }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Load the raw CIFAR\PYZhy{}10 data}
+            \PY{n}{cifar10\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hmwk5\PYZus{}2/datasets/cifar\PYZhy{}10\PYZhy{}batches\PYZhy{}py}\PY{l+s+s1}{\PYZsq{}}
+            
+            \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}CIFAR10}\PY{p}{(}\PY{n}{cifar10\PYZus{}dir}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} subsample the data}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{n}{num\PYZus{}training} \PY{o}{+} \PY{n}{num\PYZus{}validation}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{n}{num\PYZus{}dev}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}dev} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Preprocessing: reshape the image data into rows}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Normalize the data: subtract the mean image}
+            \PY{n}{mean\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{X\PYZus{}train} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}val} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}test} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}dev} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            
+            \PY{c+c1}{\PYZsh{} add bias dimension and transform into columns}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}
+        
+        
+        \PY{c+c1}{\PYZsh{} Cleaning up variables to prevent loading data multiple times (which may cause memory issue)}
+        \PY{k}{try}\PY{p}{:}
+           \PY{k}{del} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}
+           \PY{k}{del} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}
+           \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Clear previously loaded data.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{except}\PY{p}{:}
+           \PY{k}{pass}
+        
+        \PY{c+c1}{\PYZsh{} Invoke the above function to get our data.}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev} \PY{o}{=} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dev data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dev labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train data shape:  (49000, 3073)
+Train labels shape:  (49000,)
+Validation data shape:  (1000, 3073)
+Validation labels shape:  (1000,)
+Test data shape:  (1000, 3073)
+Test labels shape:  (1000,)
+dev data shape:  (500, 3073)
+dev labels shape:  (500,)
+
+    \end{Verbatim}
+
+    \subsection{Softmax Classifier}\label{softmax-classifier}
+
+Your code for this section will all be written inside
+\textbf{hmwk5\_2/classifiers/softmax.py}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} First implement the naive softmax loss function with nested loops.}
+        \PY{c+c1}{\PYZsh{} Open the file cs231n/classifiers/softmax.py and implement the}
+        \PY{c+c1}{\PYZsh{} softmax\PYZus{}loss\PYZus{}naive function.}
+        
+        \PY{k+kn}{from} \PY{n+nn}{hmwk5\PYZus{}2}\PY{n+nn}{.}\PY{n+nn}{classifiers}\PY{n+nn}{.}\PY{n+nn}{softmax} \PY{k}{import} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        
+        \PY{c+c1}{\PYZsh{} Generate a random softmax weight matrix and use it to compute the loss.}
+        \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{3073}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)} \PY{o}{*} \PY{l+m+mf}{0.0001}
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} As a rough sanity check, our loss should be something close to \PYZhy{}log(0.1).}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{loss}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sanity check: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+loss: 2.372611
+sanity check: 2.302585
+
+    \end{Verbatim}
+
+    \subsection{Inline Question 1:}\label{inline-question-1}
+
+Why do we expect our loss to be close to -log(0.1)? Explain briefly.**
+
+\textbf{Your answer:} *Because we use a random weight matrix W, we
+expect each class to be picked randomly, or in other words, each class
+to have same expected scores s\_j for each picture.
+
+As we have 10 classes,
+
+\$ \{s\_j\} == \{s\_k\} \$
+
+and
+
+\$ e\^{}\{s\_j\} == e\^{}\{s\_k\} \$ for all j,k in 0,...,9
+
+Thus the expecation of the term inside log becomes
+
+\$ e\^{}\{s\_k\} / sum(e\^{}\{s\_j\} \$ for j in range(10)) \$ ==
+e\^{}\{s\_j\} / sum(10 * e\^{}\{s\_j\}) == e\^{}\{s\_j\} / 10 *
+e\^{}\{s\_j\} == 1/10 \$.*
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Complete the implementation of softmax\PYZus{}loss\PYZus{}naive and implement a (naive)}
+        \PY{c+c1}{\PYZsh{} version of the gradient that uses nested loops.}
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} As we did for the SVM, use numeric gradient checking as a debugging tool.}
+        \PY{c+c1}{\PYZsh{} The numeric gradient should be close to the analytic gradient.}
+        \PY{k+kn}{from} \PY{n+nn}{hmwk5\PYZus{}2}\PY{n+nn}{.}\PY{n+nn}{gradient\PYZus{}check} \PY{k}{import} \PY{n}{grad\PYZus{}check\PYZus{}sparse}
+        \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{w}\PY{p}{:} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{grad\PYZus{}numerical} \PY{o}{=} \PY{n}{grad\PYZus{}check\PYZus{}sparse}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{W}\PY{p}{,} \PY{n}{grad}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} similar to SVM case, do another gradient check with regularization}
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{5e1}\PY{p}{)}
+        \PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{w}\PY{p}{:} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{5e1}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{grad\PYZus{}numerical} \PY{o}{=} \PY{n}{grad\PYZus{}check\PYZus{}sparse}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{n}{W}\PY{p}{,} \PY{n}{grad}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+numerical: 2.905540 analytic: 2.905540, relative error: 2.030850e-08
+numerical: -0.626421 analytic: -0.626421, relative error: 5.418711e-09
+numerical: 0.679245 analytic: 0.679245, relative error: 3.200919e-08
+numerical: -5.140725 analytic: -5.140725, relative error: 4.507416e-09
+numerical: 4.178988 analytic: 4.178988, relative error: 1.539717e-08
+numerical: 0.219912 analytic: 0.219912, relative error: 1.287380e-07
+numerical: -0.158448 analytic: -0.158448, relative error: 1.129315e-07
+numerical: -0.002162 analytic: -0.002162, relative error: 1.271332e-05
+numerical: 2.990328 analytic: 2.990328, relative error: 1.173248e-08
+numerical: 2.800795 analytic: 2.800795, relative error: 1.554212e-08
+numerical: -0.750818 analytic: -0.750818, relative error: 4.228010e-08
+numerical: -1.765167 analytic: -1.765167, relative error: 2.565882e-08
+numerical: -1.024704 analytic: -1.024704, relative error: 9.646090e-09
+numerical: -1.306675 analytic: -1.306675, relative error: 4.064074e-08
+numerical: 0.376995 analytic: 0.376995, relative error: 7.080839e-08
+numerical: -1.882359 analytic: -1.882359, relative error: 1.028506e-08
+numerical: 1.889889 analytic: 1.889889, relative error: 1.891304e-08
+numerical: -2.526498 analytic: -2.526499, relative error: 1.304408e-08
+numerical: 2.591603 analytic: 2.591603, relative error: 3.653577e-09
+numerical: 0.373286 analytic: 0.373286, relative error: 5.092874e-08
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Now that we have a naive implementation of the softmax loss function and its gradient,}
+        \PY{c+c1}{\PYZsh{} implement a vectorized version in softmax\PYZus{}loss\PYZus{}vectorized.}
+        \PY{c+c1}{\PYZsh{} The two versions should compute the same results, but the vectorized version should be}
+        \PY{c+c1}{\PYZsh{} much faster.}
+        \PY{n}{tic} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss\PYZus{}naive}\PY{p}{,} \PY{n}{grad\PYZus{}naive} \PY{o}{=} \PY{n}{softmax\PYZus{}loss\PYZus{}naive}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{0.000005}\PY{p}{)}
+        \PY{n}{toc} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{naive loss: }\PY{l+s+si}{\PYZpc{}e}\PY{l+s+s1}{ computed in }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{loss\PYZus{}naive}\PY{p}{,} \PY{n}{toc} \PY{o}{\PYZhy{}} \PY{n}{tic}\PY{p}{)}\PY{p}{)}
+        
+        \PY{k+kn}{from} \PY{n+nn}{hmwk5\PYZus{}2}\PY{n+nn}{.}\PY{n+nn}{classifiers}\PY{n+nn}{.}\PY{n+nn}{softmax} \PY{k}{import} \PY{n}{softmax\PYZus{}loss\PYZus{}vectorized}
+        \PY{n}{tic} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss\PYZus{}vectorized}\PY{p}{,} \PY{n}{grad\PYZus{}vectorized} \PY{o}{=} \PY{n}{softmax\PYZus{}loss\PYZus{}vectorized}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{l+m+mf}{0.000005}\PY{p}{)}
+        \PY{n}{toc} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vectorized loss: }\PY{l+s+si}{\PYZpc{}e}\PY{l+s+s1}{ computed in }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{loss\PYZus{}vectorized}\PY{p}{,} \PY{n}{toc} \PY{o}{\PYZhy{}} \PY{n}{tic}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} As we did for the SVM, we use the Frobenius norm to compare the two versions}
+        \PY{c+c1}{\PYZsh{} of the gradient.}
+        \PY{n}{grad\PYZus{}difference} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{grad\PYZus{}naive} \PY{o}{\PYZhy{}} \PY{n}{grad\PYZus{}vectorized}\PY{p}{,} \PY{n+nb}{ord}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss difference: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{loss\PYZus{}naive} \PY{o}{\PYZhy{}} \PY{n}{loss\PYZus{}vectorized}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient difference: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{grad\PYZus{}difference}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+naive loss: 2.372611e+00 computed in 0.097880s
+vectorized loss: 2.372611e+00 computed in 0.007375s
+Loss difference: 0.000000
+Gradient difference: 0.000000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Use the validation set to tune hyperparameters (regularization strength and}
+        \PY{c+c1}{\PYZsh{} learning rate). You should experiment with different ranges for the learning}
+        \PY{c+c1}{\PYZsh{} rates and regularization strengths; if you are careful you should be able to}
+        \PY{c+c1}{\PYZsh{} get a classification accuracy of over 0.35 on the validation set.}
+        \PY{k+kn}{from} \PY{n+nn}{hmwk5\PYZus{}2}\PY{n+nn}{.}\PY{n+nn}{classifiers} \PY{k}{import} \PY{n}{Softmax}
+        \PY{n}{results} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{best\PYZus{}val} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        \PY{n}{best\PYZus{}softmax} \PY{o}{=} \PY{k+kc}{None}
+        \PY{n}{learning\PYZus{}rates} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{1e\PYZhy{}7}\PY{p}{,} \PY{l+m+mf}{5e\PYZhy{}7}\PY{p}{]}
+        \PY{n}{regularization\PYZus{}strengths} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{2.5e4}\PY{p}{,} \PY{l+m+mf}{5e4}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} TODO:                                                                        \PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Use the validation set to set the learning rate and regularization strength. \PYZsh{}}
+        \PY{c+c1}{\PYZsh{} This should be identical to the validation that you did for the SVM; save    \PYZsh{}}
+        \PY{c+c1}{\PYZsh{} the best trained softmax classifer in best\PYZus{}softmax.                          \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{128}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{reg} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{regularization\PYZus{}strengths}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{regularization\PYZus{}strengths}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+            
+            \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{n}{learning\PYZus{}rates}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{learning\PYZus{}rates}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+            \PY{n}{softmax} \PY{o}{=} \PY{n}{Softmax}\PY{p}{(}\PY{p}{)}
+            
+            \PY{n}{loss} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{,}\PY{n}{reg}\PY{o}{=}\PY{n}{reg}\PY{p}{,} \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}\PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            
+            \PY{n}{train\PYZus{}prediction} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+            
+            \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{train\PYZus{}prediction} \PY{o}{==} \PY{n}{y\PYZus{}train}\PY{p}{)}
+            
+            \PY{n}{val\PYZus{}prediction}   \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)}
+            
+            \PY{n}{val\PYZus{}acc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{val\PYZus{}prediction} \PY{o}{==} \PY{n}{y\PYZus{}val}\PY{p}{)}
+        
+            \PY{k}{if} \PY{n}{best\PYZus{}val} \PY{o}{\PYZlt{}} \PY{n}{val\PYZus{}acc}\PY{p}{:}
+                \PY{n}{best\PYZus{}val} \PY{o}{=} \PY{n}{val\PYZus{}acc}
+                \PY{n}{best\PYZus{}softmax} \PY{o}{=} \PY{n}{softmax}
+                
+            \PY{n}{results}\PY{p}{[}\PY{n}{learning\PYZus{}rate}\PY{p}{,} \PY{n}{reg}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{train\PYZus{}acc}\PY{p}{,} \PY{n}{val\PYZus{}acc}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{c+c1}{\PYZsh{}                              END OF YOUR CODE                                \PYZsh{}}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+            
+        \PY{c+c1}{\PYZsh{} Print out results.}
+        \PY{k}{for} \PY{n}{lr}\PY{p}{,} \PY{n}{reg} \PY{o+ow}{in} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{results}\PY{p}{)}\PY{p}{:}
+            \PY{n}{train\PYZus{}accuracy}\PY{p}{,} \PY{n}{val\PYZus{}accuracy} \PY{o}{=} \PY{n}{results}\PY{p}{[}\PY{p}{(}\PY{n}{lr}\PY{p}{,} \PY{n}{reg}\PY{p}{)}\PY{p}{]}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr }\PY{l+s+si}{\PYZpc{}e}\PY{l+s+s1}{ reg }\PY{l+s+si}{\PYZpc{}e}\PY{l+s+s1}{ train accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{ val accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
+                        \PY{n}{lr}\PY{p}{,} \PY{n}{reg}\PY{p}{,} \PY{n}{train\PYZus{}accuracy}\PY{p}{,} \PY{n}{val\PYZus{}accuracy}\PY{p}{)}\PY{p}{)}
+            
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best validation accuracy achieved during cross\PYZhy{}validation: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{best\PYZus{}val}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+lr 1.009938e-07 reg 3.845963e+04 train accuracy: 0.234306 val accuracy: 0.256000
+lr 1.033997e-07 reg 3.042589e+04 train accuracy: 0.217673 val accuracy: 0.238000
+lr 1.075325e-07 reg 4.863788e+04 train accuracy: 0.259633 val accuracy: 0.264000
+lr 1.208711e-07 reg 3.484924e+04 train accuracy: 0.246163 val accuracy: 0.263000
+lr 1.350039e-07 reg 2.850439e+04 train accuracy: 0.248469 val accuracy: 0.248000
+lr 1.350176e-07 reg 3.516257e+04 train accuracy: 0.267245 val accuracy: 0.283000
+lr 1.500709e-07 reg 2.776031e+04 train accuracy: 0.256449 val accuracy: 0.262000
+lr 1.530130e-07 reg 3.702389e+04 train accuracy: 0.287755 val accuracy: 0.308000
+lr 1.531788e-07 reg 3.146617e+04 train accuracy: 0.274816 val accuracy: 0.316000
+lr 1.540626e-07 reg 3.735146e+04 train accuracy: 0.280612 val accuracy: 0.295000
+lr 1.543605e-07 reg 4.120984e+04 train accuracy: 0.288510 val accuracy: 0.304000
+lr 1.654726e-07 reg 4.321380e+04 train accuracy: 0.301490 val accuracy: 0.300000
+lr 1.689797e-07 reg 2.615719e+04 train accuracy: 0.276776 val accuracy: 0.284000
+lr 1.691416e-07 reg 3.986335e+04 train accuracy: 0.297449 val accuracy: 0.310000
+lr 1.737718e-07 reg 4.542969e+04 train accuracy: 0.313714 val accuracy: 0.320000
+lr 1.767313e-07 reg 4.611121e+04 train accuracy: 0.310857 val accuracy: 0.328000
+lr 1.834714e-07 reg 4.641936e+04 train accuracy: 0.307245 val accuracy: 0.320000
+lr 1.837412e-07 reg 4.166596e+04 train accuracy: 0.311918 val accuracy: 0.317000
+lr 1.850401e-07 reg 3.286584e+04 train accuracy: 0.289408 val accuracy: 0.319000
+lr 1.932811e-07 reg 4.753962e+04 train accuracy: 0.318306 val accuracy: 0.330000
+lr 1.935478e-07 reg 4.091764e+04 train accuracy: 0.312224 val accuracy: 0.307000
+lr 1.996917e-07 reg 4.815287e+04 train accuracy: 0.328082 val accuracy: 0.339000
+lr 2.006591e-07 reg 4.453292e+04 train accuracy: 0.318286 val accuracy: 0.339000
+lr 2.020868e-07 reg 4.018056e+04 train accuracy: 0.313122 val accuracy: 0.317000
+lr 2.086807e-07 reg 4.384333e+04 train accuracy: 0.321102 val accuracy: 0.328000
+lr 2.096484e-07 reg 3.138784e+04 train accuracy: 0.307469 val accuracy: 0.314000
+lr 2.107144e-07 reg 4.928305e+04 train accuracy: 0.329367 val accuracy: 0.338000
+lr 2.117260e-07 reg 3.428269e+04 train accuracy: 0.313061 val accuracy: 0.321000
+lr 2.178875e-07 reg 4.765103e+04 train accuracy: 0.321918 val accuracy: 0.327000
+lr 2.184597e-07 reg 3.250891e+04 train accuracy: 0.313122 val accuracy: 0.318000
+lr 2.202949e-07 reg 2.952113e+04 train accuracy: 0.305510 val accuracy: 0.320000
+lr 2.211046e-07 reg 3.871776e+04 train accuracy: 0.322857 val accuracy: 0.330000
+lr 2.216484e-07 reg 2.518181e+04 train accuracy: 0.298857 val accuracy: 0.294000
+lr 2.238262e-07 reg 3.481094e+04 train accuracy: 0.313367 val accuracy: 0.328000
+lr 2.265097e-07 reg 2.764105e+04 train accuracy: 0.308837 val accuracy: 0.302000
+lr 2.298402e-07 reg 2.769608e+04 train accuracy: 0.314429 val accuracy: 0.332000
+lr 2.312708e-07 reg 3.321061e+04 train accuracy: 0.319980 val accuracy: 0.313000
+lr 2.348245e-07 reg 2.780558e+04 train accuracy: 0.310245 val accuracy: 0.320000
+lr 2.387124e-07 reg 4.999753e+04 train accuracy: 0.326490 val accuracy: 0.340000
+lr 2.414703e-07 reg 4.790942e+04 train accuracy: 0.317653 val accuracy: 0.346000
+lr 2.451708e-07 reg 3.195241e+04 train accuracy: 0.320122 val accuracy: 0.321000
+lr 2.452673e-07 reg 3.059301e+04 train accuracy: 0.320694 val accuracy: 0.349000
+lr 2.511774e-07 reg 3.033226e+04 train accuracy: 0.325429 val accuracy: 0.345000
+lr 2.537861e-07 reg 4.994398e+04 train accuracy: 0.319327 val accuracy: 0.344000
+lr 2.541843e-07 reg 2.663394e+04 train accuracy: 0.322163 val accuracy: 0.339000
+lr 2.584811e-07 reg 3.544414e+04 train accuracy: 0.328816 val accuracy: 0.342000
+lr 2.592437e-07 reg 3.272716e+04 train accuracy: 0.330306 val accuracy: 0.336000
+lr 2.603717e-07 reg 3.591356e+04 train accuracy: 0.324449 val accuracy: 0.324000
+lr 2.607784e-07 reg 3.094472e+04 train accuracy: 0.328673 val accuracy: 0.329000
+lr 2.608771e-07 reg 3.820377e+04 train accuracy: 0.330878 val accuracy: 0.345000
+lr 2.635114e-07 reg 4.845860e+04 train accuracy: 0.326898 val accuracy: 0.335000
+lr 2.677930e-07 reg 3.236975e+04 train accuracy: 0.327694 val accuracy: 0.341000
+lr 2.708877e-07 reg 4.986685e+04 train accuracy: 0.324102 val accuracy: 0.330000
+lr 2.718047e-07 reg 3.768203e+04 train accuracy: 0.333633 val accuracy: 0.347000
+lr 2.777851e-07 reg 3.821913e+04 train accuracy: 0.333449 val accuracy: 0.355000
+lr 2.849458e-07 reg 3.217981e+04 train accuracy: 0.334939 val accuracy: 0.349000
+lr 2.873757e-07 reg 3.495576e+04 train accuracy: 0.326918 val accuracy: 0.344000
+lr 2.885814e-07 reg 3.731844e+04 train accuracy: 0.339469 val accuracy: 0.345000
+lr 2.942529e-07 reg 4.901353e+04 train accuracy: 0.313204 val accuracy: 0.334000
+lr 2.944034e-07 reg 2.952374e+04 train accuracy: 0.336082 val accuracy: 0.333000
+lr 2.946602e-07 reg 3.207422e+04 train accuracy: 0.332898 val accuracy: 0.334000
+lr 2.963313e-07 reg 3.779343e+04 train accuracy: 0.329408 val accuracy: 0.341000
+lr 2.971030e-07 reg 2.692351e+04 train accuracy: 0.326306 val accuracy: 0.326000
+lr 2.972220e-07 reg 3.658050e+04 train accuracy: 0.326735 val accuracy: 0.337000
+lr 2.978308e-07 reg 3.934900e+04 train accuracy: 0.333163 val accuracy: 0.343000
+lr 3.006229e-07 reg 3.663816e+04 train accuracy: 0.335837 val accuracy: 0.348000
+lr 3.023228e-07 reg 3.197975e+04 train accuracy: 0.340796 val accuracy: 0.357000
+lr 3.034666e-07 reg 4.417648e+04 train accuracy: 0.328714 val accuracy: 0.342000
+lr 3.038688e-07 reg 4.452570e+04 train accuracy: 0.331143 val accuracy: 0.341000
+lr 3.092464e-07 reg 3.375079e+04 train accuracy: 0.331347 val accuracy: 0.353000
+lr 3.133524e-07 reg 2.843879e+04 train accuracy: 0.337163 val accuracy: 0.341000
+lr 3.165963e-07 reg 4.791966e+04 train accuracy: 0.332061 val accuracy: 0.344000
+lr 3.205437e-07 reg 4.297018e+04 train accuracy: 0.333224 val accuracy: 0.343000
+lr 3.235758e-07 reg 3.454585e+04 train accuracy: 0.332796 val accuracy: 0.341000
+lr 3.243792e-07 reg 3.919385e+04 train accuracy: 0.328122 val accuracy: 0.341000
+lr 3.244104e-07 reg 4.845824e+04 train accuracy: 0.323245 val accuracy: 0.342000
+lr 3.252915e-07 reg 4.904505e+04 train accuracy: 0.324837 val accuracy: 0.339000
+lr 3.268507e-07 reg 3.714306e+04 train accuracy: 0.330061 val accuracy: 0.345000
+lr 3.306079e-07 reg 4.860652e+04 train accuracy: 0.327367 val accuracy: 0.334000
+lr 3.311015e-07 reg 3.437269e+04 train accuracy: 0.339102 val accuracy: 0.353000
+lr 3.371680e-07 reg 2.730311e+04 train accuracy: 0.338367 val accuracy: 0.356000
+lr 3.402391e-07 reg 3.014730e+04 train accuracy: 0.332531 val accuracy: 0.342000
+lr 3.413970e-07 reg 2.778947e+04 train accuracy: 0.345510 val accuracy: 0.374000
+lr 3.513299e-07 reg 4.160753e+04 train accuracy: 0.329367 val accuracy: 0.348000
+lr 3.566652e-07 reg 4.692871e+04 train accuracy: 0.339041 val accuracy: 0.349000
+lr 3.592490e-07 reg 4.783398e+04 train accuracy: 0.334694 val accuracy: 0.347000
+lr 3.625219e-07 reg 2.727620e+04 train accuracy: 0.336408 val accuracy: 0.347000
+lr 3.701979e-07 reg 3.311952e+04 train accuracy: 0.336918 val accuracy: 0.345000
+lr 3.710652e-07 reg 2.895593e+04 train accuracy: 0.341673 val accuracy: 0.366000
+lr 3.788919e-07 reg 4.648370e+04 train accuracy: 0.326980 val accuracy: 0.341000
+lr 3.864364e-07 reg 2.923228e+04 train accuracy: 0.341204 val accuracy: 0.344000
+lr 3.874377e-07 reg 4.519927e+04 train accuracy: 0.334184 val accuracy: 0.355000
+lr 3.938164e-07 reg 3.333531e+04 train accuracy: 0.334347 val accuracy: 0.364000
+lr 4.065580e-07 reg 4.120118e+04 train accuracy: 0.328265 val accuracy: 0.346000
+lr 4.117282e-07 reg 4.784535e+04 train accuracy: 0.330653 val accuracy: 0.355000
+lr 4.120117e-07 reg 2.725662e+04 train accuracy: 0.335510 val accuracy: 0.341000
+lr 4.121356e-07 reg 3.410765e+04 train accuracy: 0.339347 val accuracy: 0.354000
+lr 4.158006e-07 reg 4.543497e+04 train accuracy: 0.326714 val accuracy: 0.335000
+lr 4.177328e-07 reg 4.730290e+04 train accuracy: 0.333612 val accuracy: 0.334000
+lr 4.195299e-07 reg 3.299392e+04 train accuracy: 0.328837 val accuracy: 0.337000
+lr 4.213863e-07 reg 4.718659e+04 train accuracy: 0.328653 val accuracy: 0.346000
+lr 4.225923e-07 reg 3.650756e+04 train accuracy: 0.330367 val accuracy: 0.343000
+lr 4.237279e-07 reg 3.115058e+04 train accuracy: 0.340796 val accuracy: 0.356000
+lr 4.257018e-07 reg 3.003452e+04 train accuracy: 0.347184 val accuracy: 0.355000
+lr 4.262498e-07 reg 3.363006e+04 train accuracy: 0.340633 val accuracy: 0.357000
+lr 4.278705e-07 reg 4.207285e+04 train accuracy: 0.316694 val accuracy: 0.334000
+lr 4.320228e-07 reg 3.966635e+04 train accuracy: 0.336449 val accuracy: 0.351000
+lr 4.340267e-07 reg 2.563058e+04 train accuracy: 0.346020 val accuracy: 0.358000
+lr 4.354020e-07 reg 3.813268e+04 train accuracy: 0.341347 val accuracy: 0.358000
+lr 4.379922e-07 reg 3.366211e+04 train accuracy: 0.335245 val accuracy: 0.355000
+lr 4.397166e-07 reg 4.674747e+04 train accuracy: 0.328531 val accuracy: 0.348000
+lr 4.443038e-07 reg 4.730062e+04 train accuracy: 0.323980 val accuracy: 0.339000
+lr 4.563792e-07 reg 2.986958e+04 train accuracy: 0.348469 val accuracy: 0.369000
+lr 4.566192e-07 reg 3.718894e+04 train accuracy: 0.335714 val accuracy: 0.351000
+lr 4.607691e-07 reg 3.794781e+04 train accuracy: 0.328612 val accuracy: 0.345000
+lr 4.638682e-07 reg 2.714467e+04 train accuracy: 0.345388 val accuracy: 0.362000
+lr 4.647928e-07 reg 3.206984e+04 train accuracy: 0.345857 val accuracy: 0.368000
+lr 4.685125e-07 reg 2.862097e+04 train accuracy: 0.343429 val accuracy: 0.352000
+lr 4.739916e-07 reg 3.105400e+04 train accuracy: 0.336388 val accuracy: 0.357000
+lr 4.777628e-07 reg 3.284170e+04 train accuracy: 0.334612 val accuracy: 0.349000
+lr 4.784153e-07 reg 4.316873e+04 train accuracy: 0.328714 val accuracy: 0.322000
+lr 4.812225e-07 reg 4.040373e+04 train accuracy: 0.334776 val accuracy: 0.344000
+lr 4.838812e-07 reg 3.811162e+04 train accuracy: 0.328755 val accuracy: 0.336000
+lr 4.901852e-07 reg 3.571813e+04 train accuracy: 0.337204 val accuracy: 0.346000
+lr 4.914756e-07 reg 2.530118e+04 train accuracy: 0.347102 val accuracy: 0.355000
+lr 4.962432e-07 reg 3.443830e+04 train accuracy: 0.336082 val accuracy: 0.342000
+lr 4.968135e-07 reg 4.046740e+04 train accuracy: 0.332449 val accuracy: 0.346000
+lr 4.990824e-07 reg 4.368494e+04 train accuracy: 0.335143 val accuracy: 0.340000
+best validation accuracy achieved during cross-validation: 0.374000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} evaluate on test set}
+         \PY{c+c1}{\PYZsh{} Evaluate the best softmax on test set}
+         \PY{n}{y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{best\PYZus{}softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{test\PYZus{}accuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{y\PYZus{}test} \PY{o}{==} \PY{n}{y\PYZus{}test\PYZus{}pred}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{softmax final test set accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{test\PYZus{}accuracy}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+softmax final test set accuracy: 0.357000
+
+    \end{Verbatim}
+
+    \textbf{Inline Question} - \emph{True or False}
+
+It's possible to add a new datapoint to a training set that would leave
+the SVM loss unchanged, but this is not the case with the Softmax
+classifier loss.
+
+\emph{Your answer}: True
+
+\emph{Your explanation}:
+
+In the SVM if the new data point has a score that is out of the margin
+range from the correct class score the loss wouldn't change but in the
+Softmax loss if the score of the new added datapoint be close to
++infinity it will adversely affect the loss, but definitely the loss of
+Softmax will change.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Visualize the learned weights for each class}
+         \PY{n}{w} \PY{o}{=} \PY{n}{best\PYZus{}softmax}\PY{o}{.}\PY{n}{W}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{p}{:}\PY{p}{]} \PY{c+c1}{\PYZsh{} strip out the bias}
+         \PY{n}{w} \PY{o}{=} \PY{n}{w}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{w\PYZus{}min}\PY{p}{,} \PY{n}{w\PYZus{}max} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{w}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{w}\PY{p}{)}
+         
+         \PY{n}{classes} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{plane}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{car}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bird}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{frog}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ship}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{truck}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} Rescale the weights to be between 0 and 255}
+             \PY{n}{wimg} \PY{o}{=} \PY{l+m+mf}{255.0} \PY{o}{*} \PY{p}{(}\PY{n}{w}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{w\PYZus{}min}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{w\PYZus{}max} \PY{o}{\PYZhy{}} \PY{n}{w\PYZus{}min}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{wimg}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uint8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{classes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
